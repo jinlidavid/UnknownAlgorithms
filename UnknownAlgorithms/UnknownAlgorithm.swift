@@ -21,6 +21,8 @@ class UnknownAlgorithm {
     
     func findMode(_ data: [Int]) -> Int {
         var frequencyDict = [Int:Int]()
+        var highestFrequency = 0
+        var mode = 0
         if data.count == 0 {
             return 0
         } else if data.count == 1 {
@@ -28,10 +30,20 @@ class UnknownAlgorithm {
         } else {
             for (_,n) in data.enumerated() {
                 if frequencyDict.keys.contains(n) {
-                    frequencyDict[n] +=1 
+                    frequencyDict[n]! += 1
+                } else {
+                    frequencyDict[n] = 1
                 }
             }
-            return 0
+            for (key,_) in frequencyDict.enumerated() {
+               if let n = Int(key) {
+                    if frequencyDict[key] > highestFrequency {
+                        mode = key
+                        highestFrequency = frequencyDict[key]
+                    }
+               }
+            }
+            return mode
         }
     }
 }
